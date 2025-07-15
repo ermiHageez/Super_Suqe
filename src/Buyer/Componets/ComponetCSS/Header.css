@@ -1,0 +1,92 @@
+.header {
+  
+  width: 90%;
+  /* padding: 1.5rem; */
+  background: linear-gradient(135deg, #f8f9ff, #ffffff);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-self: center;
+  gap: 1rem;
+
+}
+
+.header__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.header__greeting h3 {
+  font-size: 1.0rem;
+  font-weight: 300;
+  color: #333;
+}
+
+.header__icons {
+  display: flex;
+  gap: 1rem;
+}
+
+.header__icon {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.header__icon:hover {
+  transform: scale(1.1);
+}
+
+.header__balance-card {
+  background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+  border-radius: 15px;
+  padding: 1.2rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.header__balance-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.header__balance-amount {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.header__add-button {
+  background: rgba(255,255,255,0.3);
+  color: white;
+  border: none;
+  font-size: 1.8rem;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.header__add-button:hover {
+  background: rgba(255,255,255,0.5);
+  transform: scale(1.1);
+}
+
+/* Responsive tweak */
+@media (max-width: 600px) {
+  .header__balance-amount {
+    font-size: 1.5rem;
+  }
+
+  .header__add-button {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,77 @@
+body {
+  background-color: #fff;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #000;
+}
+
+p {
+  text-align: center;
+  font-size: 1rem; /* 16px */
+  font-weight: 500;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  margin-top: 0.625rem; /* 10px */
+}
+
+.btn_container {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  gap: 1px;
+  justify-content: space-around;
+  padding: 0.15rem; /* 2px */
+  overflow-x: auto;
+  border-radius: 5px;
+}
+
+.btn_container div {
+  text-align: center;
+  font-size: 0.875rem; /* 14px */
+  font-weight: 600;
+  color: #000;
+  /* border-radius: 80%; */
+  border-radius: 20px;
+  margin: 0.275rem 0.3rem; /* 6px 8px */
+  padding: 0.625rem; /* 10px */
+  min-width: 80px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.btn_container div:active {
+  transform: scale(1.4);
+}
+
+/* Background colors for each item */
+.btn_container > div:nth-child(1) {
+  background-color: #FFF;
+  opacity: 0.9;
+}
+.btn_container > div:nth-child(2) {
+  background-color: #FFF;
+  opacity: 0.9;
+}
+.btn_container > div:nth-child(3) {
+  background-color: #FFF;
+  opacity: 0.9;
+}
+.btn_container > div:nth-child(4) {
+  background-color: #FFF;
+  opacity: 0.9;
+}
+.btn_container > div:nth-child(5) {
+  background-color: #FFF;
+  opacity: 0.95;
+}
+
+.btn_container h2 {
+  font-size: 1rem; /* 16px */
+  font-weight: 600;
+  margin-top: -0.725rem; /* -10px */
+}
+
+.btn_container img {
+  width: 7vh;
+  height: auto;
+  border-radius: 0.625rem; /* 10px */
+}

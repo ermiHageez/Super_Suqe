@@ -1,0 +1,122 @@
+/* Base styles */
+.login-card {
+  padding: 2rem;
+  max-width: 400px;
+  margin: 2rem auto;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.home-header img{
+  max-width: 66%;
+  height: auto;
+  border-radius: 20px;
+}
+.title {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #333333;
+}
+
+.cardbtn {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.btn, .btn2 {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+
+.btn2 {
+  background-color: #008CBA;
+  color: white;
+}
+
+.btn2:hover {
+  background-color: #007bb5;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.line {
+  flex: 1;
+  height: 1px;
+  background-color: #cccccc;
+}
+
+.text {
+  margin: 0 1rem;
+  color: #666666;
+  font-size: 0.9rem;
+}
+
+.telegram-login {
+  margin-top: 1.5rem;
+}
+
+.login-link {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .login-card {
+    max-width: 90%;
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-card {
+    padding: 1rem;
+  }
+  .btn, .btn2 {
+    font-size: 0.95rem;
+    padding: 0.6rem 1rem;
+  }
+  .order-text{
+    padding: 2px;
+    margin: 2px;
+    font-size: 8px;
+    line-height: normal;
+    font-weight: 400;
+  }
+  .title {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn, .btn2 {
+    width: 100%;
+  }
+
+  .separator .text {
+    font-size: 0.8rem;
+  }
+}
