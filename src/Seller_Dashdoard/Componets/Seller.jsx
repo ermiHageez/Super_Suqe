@@ -65,7 +65,7 @@ function Seller() {
             {products.map(product => (
               <div className="product-card" key={product.id}>
                 <img
-                  src={`data:image/jpeg;base64,${product.image}`}
+                  src={`http://localhost:8080/api/v1/product/image/${product.image}`}
                   alt={product.name}
                   className="product-image"
                 />

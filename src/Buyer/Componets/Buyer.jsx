@@ -36,7 +36,7 @@ function Buyer() {
             price: p.price,
             rating: p.rating || 4.5,
             stockQuantity: p.stockQuantity || 0,
-            image: `data:image/jpeg;base64,${p.image}`,
+            image: `http://localhost:8080/api/v1/product/image/${p.image}`,
             seller: seller,
           })),
         }));

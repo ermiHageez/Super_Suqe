@@ -111,15 +111,15 @@ const Myorder = () => {
                   disabled={order.status === "Delivered"}
                   style={{
                     backgroundColor:
-                      order.status === "Pending" ? "#ffc107" :
-                      order.status === "Accepted" ? "#007bff" :
+                      order.status === "Pending" ? "#ffb300ff" :
+                      order.status === "ACCEPTED" ? "#007bff" :
                       order.status === "Delivered" ? "green" : "gray",
                     color: "white",
                     cursor: order.status === "Delivered" ? "not-allowed" : "pointer"
                   }}
                 >
-                  {order.status === "Pending" && "Accept Order ደሶኛል"}
-                  {order.status === "Accepted" && "Mark as Delivered ✅"}
+                  {order.status === "Pending" && "Your Order Pending... ⏳"}
+                  {order.status === "ACCEPTED" && "Accept Order ✅"}
                   {order.status === "Delivered" && "Delivered ደርሶኛል"}
                 </button>
               </div>

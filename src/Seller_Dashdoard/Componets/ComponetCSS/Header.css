@@ -49,11 +49,14 @@ body {
 }
 
 .header__user {
-  gap: 8px;
+  gap: 2px;
 }
 
 .header__username {
   margin-left: 8px;
   font-size: 14px;
-  color: #333;
+}
+.header__username{
+  font-weight: 600;
+  color: #0425a7;
 }
