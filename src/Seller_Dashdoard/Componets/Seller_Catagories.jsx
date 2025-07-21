@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "./ComponetCSS/Catagories.css";
+import { useLocation } from 'react-router-dom';
 
 function Seller_Catagories() {
   const navigate = useNavigate();
@@ -9,10 +10,13 @@ function Seller_Catagories() {
   const [totalSales, setTotalSales] = useState(0);
   const [totalOrders, setTotalOrders] = useState(0);
 
+  const location = useLocation();
+   const queryParams = new URLSearchParams(location.search);
+   const username = queryParams.get("username") || "Buyer";
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const username = "dagmawiacc";
+        // const username = "dagmawiacc";
         const response = await axios.get(`http://localhost:8080/api/orders/username/${username}`);
         const orderData = response.data;
 

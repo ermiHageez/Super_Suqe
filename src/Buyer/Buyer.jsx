@@ -5,6 +5,7 @@ import Catagories from './Componets/Catagories'
 import Featured_Product from './Componets/Featured_Product'
 import Seller from './Componets/Buyer'
 import Myorder from './Componets/Myorder'
+import SellerByChannel from './Componets/SellerByChannel'
 import "./BuyerCSS/home.css"
 function Home() {
   return (
@@ -13,8 +14,9 @@ function Home() {
       <Header />
       {/* <Catagories/> */}
       <Myorder />
-      <Featured_Product/>
+      <SellerByChannel />
       <Outlet/>
+      <Featured_Product/>
       <Seller/>
       
       </div>

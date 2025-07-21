@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import "./ComponetCSS/Header.css";
 import Seller_Catagories from './Seller_Catagories';
 import Featured_Product from './Featured_Product';
+import SellerByChannel from '../../Buyer/Componets/SellerByChannel';
 import Seller from './Seller';
 import { useLocation } from 'react-router-dom';
 
@@ -40,6 +41,7 @@ function Header() {
 
       <Seller_Catagories />
       <Featured_Product />
+      {/* <SellerByChannel /> */}
       <Seller />
     </>
   );
