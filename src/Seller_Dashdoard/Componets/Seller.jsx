@@ -1,99 +1,72 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { SwipeableDrawer, Button } from '@mui/material';
+import UpdateProduct from './UpdateProduct';
 import './ComponetCSS/Seller.css';
-import { useNavigate } from 'react-router-dom';
 
-function Seller() {
-  const navigate = useNavigate();
+const Seller = () => {
   const [products, setProducts] = useState([]);
-  const [username, setUsername] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
-  // Extract username and role from URL
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/api/v1/product');
+      const data = await response.json();
+      setProducts(data);
+    } catch (error) {
+      console.error('Failed to fetch products', error);
+    }
+  };
+
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const extractedUsername = params.get('username');
-    const role = params.get('role');
-
-    if (extractedUsername) {
-      localStorage.setItem('username', extractedUsername);
-      setUsername(extractedUsername);
-    }
-
-    if (role) {
-      localStorage.setItem('role', role);
-    }
+    fetchProducts();
   }, []);
 
-  // Fetch seller's products
-  useEffect(() => {
-    const fetchProducts = async () => {
-      if (!username) return;
+  const handleUpdateClick = (product) => {
+    setSelectedProduct(product);
+    setDrawerOpen(true);
+  };
 
-      try {
-        const response = await fetch(`http://localhost:8080/api/v1/product/username/${username}`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch products');
-        }
-        const data = await response.json();
-        setProducts(data);
-      } catch (error) {
-        console.error('Error fetching seller products:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
+  const handleDrawerClose = () => {
+    setDrawerOpen(false);
+    setSelectedProduct(null);
     fetchProducts();
-  }, [username]);
+  };
 
   return (
-    <div className="seller-products">
-      <div className="seller-products-header">
-        <h2>Your Products</h2>
-        <a href="/all-products" className="see-all">View All</a>
-      </div>
-
-      <div className="seller-section">
-        <h3 className="seller-name">💙 @{username}</h3>
-
-        {loading ? (
-          <p>Loading products...</p>
-        ) : products.length === 0 ? (
-          <p>No products found for @{username}</p>
-        ) : (
-          <div className="product-list">
-            {products.map(product => (
-              <div className="product-card" key={product.id}>
-                <img
-                  src={`http://localhost:8080/api/v1/product/image/${product.image}`}
-                  alt={product.name}
-                  className="product-image"
-                />
-                <div className="product-info">
-                  <h4 className="product-name"><strong>{product.product_name}</strong></h4>
-                  <p className="product-price">${product.price.toFixed(2)}</p>
-                  <span className="product-rating">⭐ Quantity {product.stockQuantity || 'N/A'}</span><br />
-                  <span className="product-rating">👁️ {product.description || '—'}</span>
-                </div>
-                <div className="product-actions">
-                  <button
-                    className="edit-button"
-                    onClick={() => {
-                      navigate('/UpdateProduct', {
-                        state: {productId: product.id, productName: product.product_name, price: product.price, stockQuantity: product.stockQuantity, category: product.category, description: product.description, image: product.image}
-                      }); 
-                    }}
-                  >
-                    Update
-                  </button>
-                </div>
-              </div>
-            ))}
+    <div className="seller-container">
+      <h2>Seller Dashboard</h2>
+      <div className="product-list">
+        {products.map((product) => (
+          <div className="product-card" key={product.id}>
+            <h3>{product.product_name}</h3>
+            <p>Price: ${product.price}</p>
+            <p>Stock: {product.stockQuantity}</p>
+            <Button variant="outlined" onClick={() => handleUpdateClick(product)}>
+              Update
+            </Button>
           </div>
-        )}
+        ))}
       </div>
+
+      <SwipeableDrawer
+        anchor="right"
+        open={drawerOpen}
+        onClose={handleDrawerClose}
+        onOpen={() => {}}
+      >
+        <div style={{ width: 400, padding: '1rem' }}>
+          {selectedProduct && (
+            <UpdateProduct
+              product={selectedProduct}
+              onCloseDrawer={handleDrawerClose}
+              refreshProducts={fetchProducts}
+            />
+          )}
+        </div>
+      </SwipeableDrawer>
     </div>
   );
-}
+};
 
 export default Seller;

@@ -1,36 +1,47 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import {
+  PieChart, Pie, Cell, Tooltip, Legend,
+  BarChart, Bar, XAxis, YAxis,
+} from "recharts";
+import {
+  Box,
+  Card,
+  CardContent,
+  Typography,
+} from "@mui/material";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import GroupIcon from "@mui/icons-material/Group";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import StoreIcon from "@mui/icons-material/Store";
 import { DataGrid } from "@mui/x-data-grid";
-import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 
 const AdminDashboard = () => {
-  const [selectedView, setSelectedView] = useState("users");
+  const [selectedView, setSelectedView] = useState("dashboard");
   const [users, setUsers] = useState([]);
   const [orders, setOrders] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    const fetchData = async () => {
+    const fetchAll = async () => {
+      setLoading(true);
       try {
-        if (selectedView === "users") {
-          const res = await axios.get("http://localhost:8080/api/v1/user/all");
-          setUsers(res.data);
-        } else if (selectedView === "orders") {
-          const res = await axios.get("http://localhost:8080/api/orders");
-          setOrders(res.data);
-        } else if (selectedView === "products") {
-          const res = await axios.get("http://localhost:8080/api/v1/product/all");
-          setProducts(res.data);
-        }
+        const [userRes, orderRes, productRes] = await Promise.all([
+          axios.get("http://localhost:8080/api/v1/user/all"),
+          axios.get("http://localhost:8080/api/orders"),
+          axios.get("http://localhost:8080/api/v1/product/all"),
+        ]);
+        setUsers(userRes.data);
+        setOrders(orderRes.data);
+        setProducts(productRes.data);
       } catch (err) {
         console.error("Error fetching data:", err);
       }
       setLoading(false);
     };
-    fetchData();
-  }, [selectedView]);
+    fetchAll();
+  }, []);
 
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
@@ -49,6 +60,11 @@ const AdminDashboard = () => {
       { name: "Out of Stock", value: products.filter(p => !p.available).length },
     ],
   };
+
+  const rows =
+    selectedView === "users" ? users :
+    selectedView === "orders" ? orders :
+    selectedView === "products" ? products : [];
 
   const columns = {
     users: [
@@ -88,130 +104,138 @@ const AdminDashboard = () => {
         width: 120,
         type: "boolean"
       },
-      // {
-      //   field: "image",
-      //   headerName: "Image",
-      //   width: 100,
-      //   renderCell: (params) =>
-      //     params.value ? (
-      //       <img
-      //         src={params.value}
-      //         alt="Product"
-      //         style={{ width: 60, height: 60, objectFit: "cover" }}
-      //       />
-      //     ) : (
-      //       "No Image"
-      //     ),
-      // },
     ],
   };
 
-  const rows =
-    selectedView === "users" ? users :
-    selectedView === "orders" ? orders :
-    products;
+  const SummaryCard = ({ icon, label, value, color }) => (
+    <Card sx={{ width: 250, m: 1, background: color, color: 'white' }}>
+      <CardContent>
+        <Typography variant="h6" component="div" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          {icon} {label}
+        </Typography>
+        <Typography variant="h4">{value}</Typography>
+      </CardContent>
+    </Card>
+  );
 
   return (
     <div style={{ display: "flex", height: "100vh" }}>
       {/* Sidebar */}
       <nav style={{
-        width: 200,
-        background: "#222",
+        width: 220,
+        background: "#212121",
         color: "white",
         display: "flex",
         flexDirection: "column",
-        padding: "1rem"
+        padding: "1rem",
+        fontSize: 16
       }}>
-        <h2>Admin Panel</h2>
-        <button
-          style={{
-            margin: "0.5rem 0",
-            padding: "0.5rem",
-            background: selectedView === "users" ? "#444" : "transparent",
-            color: "white",
-            border: "none",
-            cursor: "pointer"
-          }}
-          onClick={() => setSelectedView("users")}
-        >
-          Users
-        </button>
-        <button
-          style={{
-            margin: "0.5rem 0",
-            padding: "0.5rem",
-            background: selectedView === "orders" ? "#444" : "transparent",
-            color: "white",
-            border: "none",
-            cursor: "pointer"
-          }}
-          onClick={() => setSelectedView("orders")}
-        >
-          Orders
-        </button>
-        <button
-          style={{
-            margin: "0.5rem 0",
-            padding: "0.5rem",
-            background: selectedView === "products" ? "#444" : "transparent",
-            color: "white",
-            border: "none",
-            cursor: "pointer"
-          }}
-          onClick={() => setSelectedView("products")}
-        >
-          Products
-        </button>
+        <h2 style={{ color: "#00C49F" }}>Admin Panel</h2>
+        {["dashboard", "users", "orders", "products"].map((view) => (
+          <button
+            key={view}
+            onClick={() => setSelectedView(view)}
+            style={{
+              margin: "0.5rem 0",
+              padding: "0.6rem",
+              background: selectedView === view ? "#424242" : "transparent",
+              color: "white",
+              border: "none",
+              textAlign: "left",
+              cursor: "pointer",
+              borderRadius: 6
+            }}
+          >
+            {view.charAt(0).toUpperCase() + view.slice(1)}
+          </button>
+        ))}
       </nav>
 
       {/* Main Content */}
       <main style={{
         flex: 1,
-        padding: "1rem",
-        background: "#f5f5f5",
+        padding: "1.5rem",
+        background: "#f4f6f8",
         overflowY: "auto"
       }}>
-        <h1>{selectedView.charAt(0).toUpperCase() + selectedView.slice(1)} Dashboard</h1>
+        <h1 style={{ marginBottom: 20 }}>
+          {selectedView.charAt(0).toUpperCase() + selectedView.slice(1)} Dashboard
+        </h1>
 
-        {/* Chart Section */}
-        <div style={{ maxWidth: 400, marginBottom: 30 }}>
-          <PieChart width={400} height={300}>
-            <Pie
-              data={chartData[selectedView]}
-              dataKey="value"
-              nameKey="name"
-              cx="50%"
-              cy="50%"
-              outerRadius={80}
-              fill="#8884d8"
-              label
-            >
-              {chartData[selectedView].map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-              ))}
-            </Pie>
-            <Tooltip />
-            <Legend />
-          </PieChart>
-        </div>
+        {selectedView === "dashboard" && (
+          <Box display="flex" flexWrap="wrap" mb={4}>
+            <SummaryCard icon={<GroupIcon />} label="Total Users" value={users.length} color="#1976d2" />
+            <SummaryCard icon={<GroupIcon />} label="Sellers" value={users.filter(u => u.role === "SELLER").length} color="#388e3c" />
+            <SummaryCard icon={<GroupIcon />} label="Buyers" value={users.filter(u => u.role === "BUYER").length} color="#f57c00" />
+            <SummaryCard icon={<ShoppingCartIcon />} label="Orders" value={orders.length} color="#d32f2f" />
+            <SummaryCard icon={<StoreIcon />} label="Products" value={products.length} color="#7b1fa2" />
+          </Box>
+        )}
 
-        {/* Data Table */}
-        <div style={{
-          height: 400,
-          background: "white",
-          borderRadius: 8,
-          padding: "1rem"
-        }}>
-          <DataGrid
-            rows={rows}
-            columns={columns[selectedView]}
-            loading={loading}
-            pageSize={5}
-            rowsPerPageOptions={[5, 10]}
-            getRowId={(row) => row.id}
-            sx={{ textAlign: "center" }}
-          />
-        </div>
+        {selectedView !== "dashboard" && (
+          <>
+            {/* Charts Section */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "2rem", marginBottom: "2rem" }}>
+              {/* Pie Chart */}
+              <div style={{ background: "#fff", padding: "1rem", borderRadius: 10 }}>
+                <h3 style={{ textAlign: "center" }}>Pie Chart</h3>
+                <PieChart width={400} height={300}>
+                  <Pie
+                    data={chartData[selectedView]}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={80}
+                    fill="#8884d8"
+                    label
+                  >
+                    {chartData[selectedView].map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  <Legend />
+                </PieChart>
+              </div>
+
+              {/* Bar Chart */}
+              <div style={{ background: "#fff", padding: "1rem", borderRadius: 10 }}>
+                <h3 style={{ textAlign: "center" }}>Bar Chart</h3>
+                <BarChart
+                  width={400}
+                  height={300}
+                  data={chartData[selectedView]}
+                  margin={{ top: 20, right: 20, left: 0, bottom: 5 }}
+                >
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="value" fill="#1976d2" />
+                </BarChart>
+              </div>
+            </div>
+
+            {/* Data Table */}
+            <div style={{
+              height: 400,
+              background: "white",
+              borderRadius: 8,
+              padding: "1rem"
+            }}>
+              <DataGrid
+                rows={rows}
+                columns={columns[selectedView]}
+                loading={loading}
+                pageSize={5}
+                rowsPerPageOptions={[5, 10]}
+                getRowId={(row) => row.id}
+                sx={{ textAlign: "center" }}
+              />
+            </div>
+          </>
+        )}
       </main>
     </div>
   );
