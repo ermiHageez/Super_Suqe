@@ -1,93 +1,64 @@
 .header {
-  
   width: 100%;
-  height: auto ;
-  padding: 1.5rem;
-  background: linear-gradient(135deg, #f8f9ff, #ffffff);
+  /* margin: 0 auto; */
+  padding: 0.5rem 1.0rem;
+  background: linear-gradient(135deg, #007ACC, #0794D0,#3dc3fd,#0eadf2c3);
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-self: center;
-  gap: 1rem;
-
-}
-
-.header__top {
-  display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
+/* Greeting */
 .header__greeting h3 {
   font-size: 1.0rem;
-  font-weight: 300;
-  color: #333;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  /* line-height: 1.0; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+/* Icons */
 .header__icons {
   display: flex;
   gap: 1rem;
 }
-
+.logo{
+  width: 80px;
+  height: auto;
+}
 .header__icon {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   cursor: pointer;
   transition: transform 0.2s ease;
+  filter: brightness(0) invert(1); /* Makes icons white on colored bg */
 }
 
 .header__icon:hover {
   transform: scale(1.1);
 }
 
-.header__balance-card {
-  background: linear-gradient(135deg, #a18cd1, #fbc2eb);
-  border-radius: 15px;
-  padding: 1.2rem 1.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.header__balance-label {
-  font-size: 0.9rem;
-  opacity: 0.9;
-}
-
-.header__balance-amount {
-  font-size: 2rem;
-  font-weight: bold;
-}
-
-.header__add-button {
-  background: rgba(255,255,255,0.3);
-  color: white;
-  border: none;
-  font-size: 1.8rem;
-  border-radius: 50%;
-  width: 45px;
-  height: 45px;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.header__add-button:hover {
-  background: rgba(255,255,255,0.5);
-  transform: scale(1.1);
-}
-
-/* Responsive tweak */
+/* Responsive */
 @media (max-width: 600px) {
-  .header__balance-amount {
-    font-size: 1.5rem;
+  .header {
+    /* margin: 0 auto; */
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 2rem;
+    padding-top: 1rem;
   }
 
-  .header__add-button {
-    width: 40px;
-    height: 40px;
-    font-size: 1.5rem;
+  .header__icons {
+    align-self: flex-end;
   }
 }

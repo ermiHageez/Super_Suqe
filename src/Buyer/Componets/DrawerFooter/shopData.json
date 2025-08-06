@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Sunshine Café",
+    "location": "123 Main St, New York, NY",
+    "image": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=500&q=80",
+    "description": "Cozy place with great coffee and pastries."
+  },
+  {
+    "id": 2,
+    "name": "TechGear Store",
+    "location": "456 Tech Ave, San Francisco, CA",
+    "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=500&q=80",
+    "description": "Electronics and accessories for tech lovers."
+  },
+  {
+    "id": 3,
+    "name": "Book Haven",
+    "location": "789 Book Rd, Chicago, IL",
+    "image": "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=500&q=80",
+    "description": "A quiet bookstore with a wide range of titles."
+  }
+]

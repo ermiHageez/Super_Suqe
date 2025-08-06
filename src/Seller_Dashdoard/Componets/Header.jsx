@@ -1,41 +1,49 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import "./ComponetCSS/Header.css";
 import Seller_Catagories from './Seller_Catagories';
 import Featured_Product from './Featured_Product';
-import SellerByChannel from '../../Buyer/Componets/SellerByChannel';
+// import SellerByChannel from '../../Buyer/Componets/SellerByChannel';
 import Seller from './Seller';
-import { useLocation } from 'react-router-dom';
+import logo from "../../assets/mini_logo.png";
 
 function Header() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const username = queryParams.get("username") || "Buyer";
+  const username = queryParams.get("username") || "Seller";
 
   return (
     <>
       <header className='header'>
-        <div className="header__title">
-          <h2>Seller Dashboard</h2>
+        {/* Greeting Section */}
+        <div className="header__greeting">
+          <h3>
+            <img src={logo} alt="Logo" className="logo" />
+            Seller Dashboard <span className="header__username">{username}</span>
+          </h3>
         </div>
 
-
-        <nav className='header__nav'>
-            <div className='header__option header__user'>
-            {/* <img 
+        {/* Icons Section */}
+        <nav className='header__icons'>
+          {/* Optional user icon */}
+          {/* <div className='header__icon'>
+            <img 
               src="https://th.bing.com/th/id/OIP.vCCk-D4SnOzQmAfyFo1SHgHaHa?rs=1&pid=ImgDetMain" 
               alt="User Profile" 
-              className="header__profile-img"
-            /> */}
-            <span className="header__username">{username || 'USER_NAME'}</span>
-          </div>
-          <div className='header__option'>
+              className="header__icon"
+            />
+          </div> */}
+           <div>
+            
+           </div>
+
+          <div>
             <img 
               src="https://cdn4.iconfinder.com/data/icons/multimedia-75/512/multimedia-06-1024.png" 
               alt="Settings" 
-              className="header__profile-img"
+              className="header__icon"
             />
-          </div>       
+          </div>
         </nav>
       </header>
 

@@ -1,62 +1,63 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
 .header {
-  padding: 1.5rem;
-  background: linear-gradient(135deg, #f8f9ff, #ffffff);
+  width: 100%;
+  padding: 0.5rem 1.0rem;
+  background: linear-gradient(135deg, #007ACC, #0794D0,#3dc3fd,#0eadf2c3);
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
   display: flex;
   flex-direction: row;
-  gap: 1rem;
-  border-bottom-right-radius: 30px;
-  border-bottom-left-radius: 30px;
+  justify-content: space-around;
   align-items: center;
-  padding: 10px 5%;
-  background-color: #ffffff;
-  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-.header__title h2 {
-  font-size: 20px;
-  margin: 0;
-  color: #333;
-}
-
-.header__nav {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-.header__option {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  transition: color 0.2s ease;
-}
-
-.header__option:hover {
-  color: #5fa08b;
-}
-
-.header__profile-img {
-  width: 32px;
-  height: 32px;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.header__user {
-  gap: 2px;
-}
-
-.header__username {
-  margin-left: 8px;
-  font-size: 14px;
-}
-.header__username{
+/* Greeting */
+.header__greeting h3 {
+  font-size: 1.0rem;
   font-weight: 600;
-  color: #0425a7;
+  color: #ffffff;
+  margin: 0;
+  /* line-height: 1.0; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Icons */
+.header__icons {
+  display: flex;
+  gap: 1rem;
+}
+.logo{
+  width: 80px;
+  height: auto;
+}
+.header__icon {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  filter: brightness(0) invert(1); /* Makes icons white on colored bg */
+}
+
+.header__icon:hover {
+  transform: scale(1.1);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .header {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 2rem;
+    padding-top: 1rem;
+    min-width: fit-content;
+  }
+
+  .header__icons {
+    align-self: flex-end;
+  }
 }
